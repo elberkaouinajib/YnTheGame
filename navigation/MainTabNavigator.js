@@ -1,11 +1,16 @@
 import React from 'react';
 import { Platform } from 'react-native';
+import { Icon } from 'react-native-elements'
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-
+import Colors from '../constants/Colors';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import ParisScreen from '../screens/ParisScreen';
+import ShopScreen from '../screens/ShopScreen';
+import StreamScreen from '../screens/StreamScreen';
+
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -16,45 +21,85 @@ HomeStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
+      name="home"
+      type="feather"
     />
   ),
 };
 
 const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+  Links: StreamScreen,
 });
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  tabBarLabel: 'Stream',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name="camera-metering-center"
+      type="material-community"
     />
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const ProfileStack = createStackNavigator({
+  Settings: ProfileScreen,
 });
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+ProfileStack.navigationOptions = {
+  tabBarLabel: 'Profile',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name="account-card-details"
+      type="material-community"
+    />
+  ),
+};
+
+const ParisStack = createStackNavigator({
+  Settings: ParisScreen,
+});
+
+ParisStack.navigationOptions = {
+  tabBarLabel: 'Paris',
+
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name="vote-outline"
+      type="material-community"
+    />
+  ),
+};
+
+const ShopStack = createStackNavigator({
+  Settings: ShopScreen,
+});
+
+ShopStack.navigationOptions = {
+  tabBarLabel: 'Shop',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name="shopify"
+      type="material-community"
     />
   ),
 };
 
 export default createBottomTabNavigator({
   HomeStack,
+  ParisStack,
+  ShopStack,
   LinksStack,
-  SettingsStack,
+  ProfileStack,
+},{
+  tabBarOptions : {
+    style: {
+      backgroundColor: '#1D1D1B',
+    },
+    activeTintColor: Colors.tintColor,
+    inactiveTintColor: Colors.tabIconDefault, 
+  }
 });
